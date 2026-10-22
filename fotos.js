@@ -9,12 +9,12 @@
    ========================================================= */
 
 const FOTOS = [
-  { src: 'fotos/1.jpg',  legenda: 'Nosso começo' },
-  { src: 'fotos/2.jpg',  legenda: 'Primeiro passeio' },
-  { src: 'fotos/3.jpg',  legenda: 'Sorrisos' },
+  { src: 'fotos/1.jpg',  legenda: 'Nós' },
+  { src: 'fotos/2.jpg',  legenda: 'Eu Te Amo' },
+  { src: 'fotos/3.jpg',  legenda: 'Meu Amor' },
   { src: 'fotos/4.jpg',  legenda: 'Dia especial' },
   { src: 'fotos/5.jpg',  legenda: 'Só nós dois' },
-  { src: 'fotos/6.jpg',  legenda: 'Aventuras' },
+  { src: 'fotos/6.jpg',  legenda: 'Meu Mundo' },
   { src: 'fotos/7.jpg',  legenda: 'Com carinho' },
   { src: 'fotos/8.jpg',  legenda: 'Meu amor' },
   { src: 'fotos/9.jpg',  legenda: 'Momentos felizes' },
