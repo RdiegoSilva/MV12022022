@@ -1,0 +1,296 @@
+/* =========================================================
+   ÁLBUM VIRTUAL — Marta & Diego
+   Índice: 1. Variáveis  2. Base  3. Álbum e páginas  4. Capa
+           5. Páginas de foto  6. Apresentação e final
+           7. Controles  8. Corações  9. Responsivo
+   Obs: "cqw" = 1% da largura do álbum (tudo escala junto)
+   ========================================================= */
+
+/* 1. VARIÁVEIS ---------------------------------------------- */
+:root {
+  --rosa-claro: #ffe3ec;
+  --rosa: #ff7aa2;
+  --rosa-forte: #e0457b;
+  --vinho: #7a1f45;
+  --ouro: #e8c26b;
+  --creme: #fff8fa;
+  --texto: #5a2a3e;
+  --fonte-script: 'Great Vibes', cursive;
+  --fonte-texto: 'Poppins', system-ui, sans-serif;
+}
+
+/* 2. BASE --------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--fonte-texto);
+  color: var(--texto);
+  min-height: 100vh;
+  background: linear-gradient(160deg, #ffd6e4, var(--creme) 45%, #ffc9dc);
+  background-attachment: fixed;
+  overflow: hidden;
+  position: relative;
+}
+/* manchas de luz ao fundo */
+body::before, body::after {
+  content: ""; position: fixed; border-radius: 50%; filter: blur(70px); z-index: 0;
+}
+body::before { width: 40vmax; height: 40vmax; background: #ff9fbf88; top: -12vmax; left: -10vmax; }
+body::after  { width: 36vmax; height: 36vmax; background: #ffe0a077; bottom: -12vmax; right: -8vmax; }
+
+.stage {
+  position: relative; z-index: 1;
+  min-height: 100vh; min-height: 100dvh;
+  display: grid; place-items: center;
+  padding: 1rem;
+}
+
+/* 3. ÁLBUM E PÁGINAS ---------------------------------------- */
+.book-wrap {
+  width: min(92vw, 460px, calc((100vh - 150px) * .75));
+  width: min(92vw, 460px, calc((100dvh - 150px) * .75));
+  container-type: inline-size;
+}
+
+.book {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  perspective: 2200px;
+  filter: drop-shadow(0 3cqw 4cqw rgba(122, 31, 69, .35));
+}
+
+.leaf {
+  position: absolute; inset: 0;
+  transform-origin: left center;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: linear-gradient(135deg, #fffdf9, #fff0f5);
+  border-radius: .6cqw 3cqw 3cqw .6cqw;
+  box-shadow: inset 3cqw 0 3cqw -3cqw rgba(122, 31, 69, .2);
+  overflow: hidden;
+  transition: transform 1s cubic-bezier(.645, .045, .355, 1);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  font-size: 3.6cqw;
+}
+.leaf.is-turned { transform: rotateY(-180deg); pointer-events: none; }
+
+/* sombra que escurece a página enquanto vira */
+.leaf::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(60, 10, 30, .35), transparent 70%);
+  opacity: 0; transition: opacity 1s;
+}
+.leaf.is-turned::after { opacity: 1; }
+
+/* furos do encadernado */
+.leaf:not(.leaf--cover)::before {
+  content: ""; position: absolute; left: .8cqw; top: 3cqw; bottom: 3cqw; width: 4cqw;
+  background: radial-gradient(circle, #e6bccb 0 38%, transparent 42%) center top / 100% 7cqw repeat-y;
+}
+
+/* argolas de metal (ficam fixas enquanto as páginas viram) */
+.book__rings {
+  position: absolute; z-index: 300; pointer-events: none;
+  left: -2.5cqw; top: 3cqw; bottom: 3cqw; width: 7cqw;
+  background: linear-gradient(90deg, #a77a1c, #fff0b8 45%, #b8860b);
+  -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 2.9cqw, #000 2.9cqw 4.1cqw, transparent 4.1cqw 7cqw);
+          mask-image: repeating-linear-gradient(to bottom, transparent 0 2.9cqw, #000 2.9cqw 4.1cqw, transparent 4.1cqw 7cqw);
+}
+
+/* 4. CAPA --------------------------------------------------- */
+.leaf--cover {
+  cursor: pointer;
+  background: radial-gradient(circle at 30% 20%, #bd3468, #7a1f45 60%, #4a112d);
+  box-shadow: inset 4cqw 0 4cqw -3cqw rgba(0, 0, 0, .45);
+}
+.cover {
+  position: absolute; inset: 4cqw 4cqw 4cqw 10cqw;
+  border: .5cqw solid var(--ouro); border-radius: 2cqw;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3cqw; color: #f9e3a8;
+}
+.cover::before {
+  content: ""; position: absolute; inset: 1.4cqw;
+  border: .25cqw dashed rgba(232, 194, 107, .6); border-radius: 1.2cqw;
+}
+.cover__top { letter-spacing: .6em; font-size: 4cqw; color: var(--ouro); }
+.cover__title {
+  font-family: var(--fonte-script); font-weight: 400;
+  font-size: 19cqw; line-height: .95;
+  background: linear-gradient(180deg, #fff3c4, #e8c26b 55%, #b8860b);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 .5cqw .5cqw rgba(0, 0, 0, .4));
+}
+.cover__names { font-family: var(--fonte-script); font-size: 9cqw; }
+.cover__date  { letter-spacing: .3em; font-size: 3.6cqw; }
+.cover__hint  { font-size: 3cqw; letter-spacing: .2em; text-transform: uppercase; animation: pulsar 1.8s ease-in-out infinite; }
+@keyframes pulsar { 50% { opacity: .35; transform: scale(.96); } }
+
+/* 5. PÁGINAS DE FOTO ---------------------------------------- */
+.leaf--photo { padding: 6cqw 6cqw 9cqw 11cqw; }
+
+.frame {
+  position: relative; width: 100%;
+  background: #fff; padding: 3.2cqw 3.2cqw 2.4cqw;
+  border-radius: .8cqw;
+  box-shadow: 0 1.4cqw 3.5cqw rgba(122, 31, 69, .28);
+  transform: rotate(var(--giro, 0deg));
+}
+/* fitinhas adesivas */
+.frame::before, .frame::after {
+  content: ""; position: absolute; top: -2.6cqw; width: 16cqw; height: 5cqw;
+  background: rgba(255, 150, 185, .6); left: -3cqw; transform: rotate(-7deg);
+}
+.frame::after { left: auto; right: -3cqw; transform: rotate(7deg); background: rgba(255, 214, 128, .65); }
+
+.frame__photo {
+  aspect-ratio: 1 / 1.05; overflow: hidden; border-radius: .4cqw;
+  background: linear-gradient(135deg, var(--rosa-claro), var(--rosa));
+  display: grid; place-items: center;
+}
+.frame__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.frame.is-empty img { display: none; }
+.frame.is-empty .frame__photo::after { content: "♥"; font-size: 20cqw; color: #fff; }
+
+.frame figcaption {
+  font-family: var(--fonte-script); font-size: 8.5cqw; line-height: 1.1;
+  color: var(--vinho); margin-top: 2cqw;
+}
+.pageno {
+  position: absolute; bottom: 4cqw; right: 6cqw;
+  font-size: 3cqw; letter-spacing: .2em; color: var(--rosa-forte);
+}
+
+/* 6. APRESENTAÇÃO E FINAL ----------------------------------- */
+.leaf--intro, .leaf--end { padding: 8cqw 7cqw 8cqw 12cqw; gap: 3.2cqw; }
+
+.eyebrow { letter-spacing: .3em; text-transform: uppercase; font-size: 2.8cqw; color: var(--rosa-forte); }
+.intro__name {
+  font-family: var(--fonte-script); font-weight: 400;
+  font-size: 15cqw; line-height: 1.05; color: var(--vinho);
+  text-shadow: 0 .6cqw 2cqw rgba(255, 122, 162, .45);
+}
+.intro__from { font-size: 4.2cqw; }
+.pill {
+  padding: 1.6cqw 5cqw; border-radius: 999px; background: #fff;
+  box-shadow: 0 1cqw 3cqw rgba(224, 69, 123, .25); color: var(--rosa-forte); font-weight: 500;
+}
+.hint { font-size: 3cqw; opacity: .7; margin-top: 4cqw; }
+
+.end__title { font-family: var(--fonte-script); font-weight: 400; font-size: 10.5cqw; color: var(--rosa-forte); line-height: 1.1; }
+.end__text { font-size: 3.5cqw; line-height: 1.55; }
+.end__sign { font-family: var(--fonte-script); font-size: 7cqw; color: var(--vinho); line-height: 1.1; }
+.end__sign span { font-size: 6cqw; color: var(--rosa-forte); }
+
+.mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; width: 100%; }
+.mini { background: #fff; border-radius: 2cqw; padding: 2cqw 0; box-shadow: 0 .8cqw 2.4cqw rgba(224, 69, 123, .2); }
+.mini span { display: block; font-size: 6cqw; font-weight: 500; line-height: 1.1; color: var(--rosa-forte); }
+.mini small { font-size: 2.3cqw; text-transform: uppercase; letter-spacing: .1em; }
+.end__total { font-size: 3.6cqw; }
+
+.restart {
+  font: inherit; font-size: 3.4cqw; cursor: pointer;
+  border: none; border-radius: 999px; padding: 2cqw 6cqw;
+  color: #fff; background: linear-gradient(135deg, var(--rosa), var(--rosa-forte));
+  box-shadow: 0 1cqw 3cqw rgba(224, 69, 123, .4); transition: transform .2s;
+}
+.restart:hover { transform: scale(1.06); }
+
+/* 7. CONTROLES ---------------------------------------------- */
+.controls { display: flex; align-items: center; gap: 4cqw; margin-top: 6cqw; }
+
+.ctrl {
+  flex: none; width: 3.1rem; height: 3.1rem; border: none; border-radius: 50%;
+  font-size: 2rem; line-height: 1; padding-bottom: .25rem; cursor: pointer; color: #fff;
+  background: linear-gradient(135deg, var(--rosa), var(--rosa-forte));
+  box-shadow: 0 .5rem 1.2rem rgba(224, 69, 123, .4);
+  transition: transform .2s, opacity .2s;
+}
+.ctrl:hover:not(:disabled) { transform: scale(1.12); }
+.ctrl:disabled { opacity: .3; cursor: default; box-shadow: none; }
+
+.progress { flex: 1; text-align: center; }
+.progress__label { display: block; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .45rem; }
+.progress__bar { height: .4rem; border-radius: 99px; background: rgba(224, 69, 123, .2); overflow: hidden; }
+.progress__bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--rosa), var(--rosa-forte)); transition: width .8s ease; }
+
+/* 8. CORAÇÕES ----------------------------------------------- */
+.hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 50; }
+
+.heart { position: absolute; top: -40px; animation: cair linear forwards; user-select: none; }
+@keyframes cair {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translate(var(--vento, 0px), 110vh) rotate(360deg); opacity: .6; }
+}
+
+.burst { position: absolute; font-size: 22px; animation: estourar 1.5s ease-out forwards; }
+@keyframes estourar {
+  0%   { transform: translate(-50%, -50%) scale(.4); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3); opacity: 0; }
+}
+
+/* 9. RESPONSIVO / ACESSIBILIDADE ---------------------------- */
+@media (max-width: 480px) {
+  .stage { padding: .6rem; }
+  .ctrl { width: 2.8rem; height: 2.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .leaf { transition-duration: .01s; }
+  .heart, .burst, .cover__hint { animation: none; }
+  .hearts { display: none; }
+}
+
+/* 10. TELA DE SENHA ----------------------------------------- */
+.stage { transition: opacity 1s ease .3s; }
+body.locked .stage { opacity: 0; pointer-events: none; }
+
+.lock {
+  position: fixed; inset: 0; z-index: 40;
+  display: grid; place-items: center; padding: 1rem;
+  background: linear-gradient(160deg, #ffd6e4, var(--creme) 45%, #ffc9dc);
+  transition: opacity .9s ease, visibility .9s;
+}
+.lock.is-open { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.lock__card {
+  width: min(100%, 340px); text-align: center;
+  background: #fff; border-radius: 1.6rem; padding: 2rem 1.5rem 1.5rem;
+  box-shadow: 0 1.2rem 3rem rgba(224, 69, 123, .3);
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.lock__card.shake { animation: tremer .45s; }
+@keyframes tremer {
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+.lock__icon {
+  width: 4.2rem; height: 4.2rem; margin: 0 auto; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.9rem;
+  background: linear-gradient(135deg, var(--rosa-claro), var(--rosa));
+  animation: bater 1.6s ease-in-out infinite;
+}
+@keyframes bater { 50% { transform: scale(1.1); } }
+
+.lock__title { font-family: var(--fonte-script); font-weight: 400; font-size: 2.6rem; line-height: 1.1; color: var(--rosa-forte); }
+.lock__text { font-size: .95rem; }
+
+.lock__input {
+  font: inherit; font-size: 1.4rem; text-align: center; letter-spacing: .35em;
+  padding: .8rem 1rem; border-radius: 999px; outline: none;
+  border: 2px solid var(--rosa-claro); background: var(--creme); color: var(--vinho);
+  transition: border-color .2s, box-shadow .2s;
+}
+.lock__input:focus { border-color: var(--rosa); box-shadow: 0 0 0 4px rgba(255, 122, 162, .25); }
+
+.lock__error { min-height: 1.2rem; font-size: .85rem; color: #c0254f; }
+
+.lock__btn {
+  font: inherit; font-weight: 500; cursor: pointer; border: none; border-radius: 999px;
+  padding: .85rem 1rem; color: #fff;
+  background: linear-gradient(135deg, var(--rosa), var(--rosa-forte));
+  box-shadow: 0 .5rem 1.2rem rgba(224, 69, 123, .4); transition: transform .2s;
+}
+.lock__btn:hover { transform: scale(1.04); }
+.lock__hint { font-size: .75rem; opacity: .6; }

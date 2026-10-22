@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Marta & Diego — Nosso Álbum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="locked">
+
+  <!-- Corações caindo -->
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <!-- Tela de senha -->
+  <section class="lock" id="lock">
+    <form class="lock__card" id="lock-form" autocomplete="off">
+      <div class="lock__icon" aria-hidden="true">🔒</div>
+      <h1 class="lock__title">Álbum da Marta</h1>
+      <p class="lock__text">Digite a senha para entrar</p>
+      <input class="lock__input" id="lock-input" type="password" inputmode="numeric"
+             autocomplete="off" placeholder="••••••••" aria-label="Senha">
+      <p class="lock__error" id="lock-error" role="alert"></p>
+      <button class="lock__btn" type="submit">Entrar 💖</button>
+      <p class="lock__hint">Dica: a data do nosso namoro</p>
+    </form>
+  </section>
+
+  <main class="stage">
+    <div class="book-wrap">
+
+      <!-- O álbum: as páginas de foto são criadas pelo script.js -->
+      <div class="book" id="book">
+        <div class="book__rings" aria-hidden="true"></div>
+
+        <!-- Capa -->
+        <section class="leaf leaf--cover" data-label="Toque para abrir">
+          <div class="cover">
+            <span class="cover__top">♥ ♥ ♥</span>
+            <h1 class="cover__title">Nosso<br>Álbum</h1>
+            <p class="cover__names">Marta &amp; Diego</p>
+            <p class="cover__date">12 · 02 · 2022</p>
+            <p class="cover__hint">toque para abrir</p>
+          </div>
+        </section>
+
+        <!-- Apresentação -->
+        <section class="leaf leaf--intro" data-label="Começo">
+          <p class="eyebrow">um álbum feito com amor</p>
+          <h2 class="intro__name">Marta Vitória</h2>
+          <p class="intro__from">de <strong>Diego Reis</strong>, para você 💖</p>
+          <p class="pill">Juntos desde <time datetime="2022-02-12">12/02/2022</time></p>
+          <p class="hint">Passe as páginas com as setas,<br>deslizando ou tocando nos botões</p>
+        </section>
+
+        <!-- (fotos entram aqui) -->
+
+        <!-- Final -->
+        <section class="leaf leaf--end" data-label="Para você">
+          <h2 class="end__title">Para você, meu amor</h2>
+          <p class="end__text">Cada foto guarda um pedacinho da nossa história. Obrigado por cada risada e por tornar meus dias mais leves.</p>
+          <p class="end__sign">Te amo, Marta 💕 <span>— Diego</span></p>
+          <div class="mini-grid" aria-live="off">
+            <div class="mini"><span id="c-anos">0</span><small>anos</small></div>
+            <div class="mini"><span id="c-meses">0</span><small>meses</small></div>
+            <div class="mini"><span id="c-dias">0</span><small>dias</small></div>
+            <div class="mini"><span id="c-horas">0</span><small>horas</small></div>
+            <div class="mini"><span id="c-min">0</span><small>min</small></div>
+            <div class="mini"><span id="c-seg">0</span><small>seg</small></div>
+          </div>
+          <p class="end__total"><strong id="c-total">0</strong> dias de amor ❤️</p>
+          <button class="restart" id="restart">↺ Rever o álbum</button>
+        </section>
+      </div>
+
+      <!-- Controles -->
+      <nav class="controls">
+        <button class="ctrl" id="prev" aria-label="Página anterior">‹</button>
+        <div class="progress">
+          <span class="progress__label" id="label">Toque para abrir</span>
+          <div class="progress__bar"><i id="bar"></i></div>
+        </div>
+        <button class="ctrl" id="next" aria-label="Próxima página">›</button>
+      </nav>
+
+    </div>
+  </main>
+
+  <script src="fotos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
