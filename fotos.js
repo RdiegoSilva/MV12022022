@@ -9,14 +9,14 @@
    ========================================================= */
 
 const FOTOS = [
-  { src: 'fotos/1.jpg',  legenda: 'Nós' },
-  { src: 'fotos/2.jpg',  legenda: 'Eu Te Amo' },
-  { src: 'fotos/3.jpg',  legenda: 'Meu Amor' },
-  { src: 'fotos/4.jpg',  legenda: 'Dia especial' },
-  { src: 'fotos/5.jpg',  legenda: 'Só nós dois' },
-  { src: 'fotos/6.jpg',  legenda: 'Meu Mundo' },
-  { src: 'fotos/7.jpg',  legenda: 'Com carinho' },
-  { src: 'fotos/8.jpg',  legenda: 'Meu amor' },
-  { src: 'fotos/9.jpg',  legenda: 'Momentos felizes' },
-  { src: 'fotos/10.jpg', legenda: 'Sempre juntos' },
+  { src: '1.jpg',  legenda: 'Nós' },
+  { src: '2.jpg',  legenda: 'Eu Te Amo' },
+  { src: '3.jpg',  legenda: 'Meu Amor' },
+  { src: '4.jpg',  legenda: 'Dia especial' },
+  { src: '5.jpg',  legenda: 'Só nós dois' },
+  { src: '6.jpg',  legenda: 'Meu Mundo' },
+  { src: '7.jpg',  legenda: 'Com carinho' },
+  { src: '8.jpg',  legenda: 'Meu amor' },
+  { src: '9.jpg',  legenda: 'Momentos felizes' },
+  { src: '10.jpg', legenda: 'Sempre juntos' },
 ];
